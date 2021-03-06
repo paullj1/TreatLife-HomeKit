@@ -9,6 +9,12 @@ Open source firmware for the [TreatLife DS02S dimmer switch](https://smile.amazo
 * If upgrading from tasmota, use the gzip'd `dimmer_v1.4.bin.gz`
 * If upgrading from this firmware, gunzip the `minimal.bin.gz`, enter config mode, and do an OTA update to that.  After minimal boots, gunzip `dimmer_v1.4.bin.gz`, and perform OTA update with resulting .bin file.
 
+## Arduino IDE Settings
+![](https://github.com/paullj1/TreatLife-DS02S-HomeKit/raw/main/Images/Arduino%20Settings.png | width=200)
+
+## Flashing
+![](https://github.com/paullj1/TreatLife-DS02S-HomeKit/raw/main/Images/Flash.jpg | width=200)
+
 # Dependencies (libraries you'll need to install in Arduino IDE):
 * [Arduino-HomeKit-ESP8266](https://github.com/Mixiaoxiao/Arduino-HomeKit-ESP8266) by [Mixiaoxiao](https://github.com/Mixiaoxiao)
 * [WiFi Manager](https://github.com/tzapu/WiFiManager) by [tzapu](https://github.com/tzapu)
