@@ -1,6 +1,8 @@
 # TreatLife-DS02S-HomeKit
 Open source firmware for the [TreatLife DS02S dimmer switch](https://smile.amazon.com/Treatlife-Neutral-Compatible-Assistant-Schedule/dp/B07YKFSWJN/ref=sr_1_4_sspa?dchild=1&keywords=treatlife+dimmer&qid=1615054278&sr=8-4-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUFaWVA5RTM2WFZXUUgmZW5jcnlwdGVkSWQ9QTA0NTA1ODQyT0lJWTNBMkdQUzFRJmVuY3J5cHRlZEFkSWQ9QTA4NzE4MjhIRjBMOVo1N1Q5SUwmd2lkZ2V0TmFtZT1zcF9hdGYmYWN0aW9uPWNsaWNrUmVkaXJlY3QmZG9Ob3RMb2dDbGljaz10cnVl)  for native HomeKit use.
 
+<img src="https://github.com/paullj1/TreatLife-DS02S-HomeKit/raw/main/qrcode.svg" />
+
 # Notes
 * To enter WiFi config mode to do OTA update, press the on/off button 8 times with less than 1 second between presses
 * Setup code was the date I built final image:  030-52-021
