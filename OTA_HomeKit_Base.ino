@@ -132,8 +132,6 @@ void tuya_init() {
   }
   Tuya.heartbeat_timer = 0; // init heartbeat timer when dimmer init is done
   tuya_request_state(0);
-
-  tuya_send_value(DIMMER_MIN_ID, 10);
 }
 
 
