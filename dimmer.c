@@ -5,7 +5,6 @@
 // Generally this is called when paired successfully or click the "Identify Accessory" button in Home APP.
 void my_accessory_identify(homekit_value_t _value) {
 	printf("accessory identify\n");
-  // turn light on, sleep 500 ms, turn off
 }
 
 char serial[16] = "XXXXXX\0";
@@ -28,7 +27,7 @@ homekit_accessory_t *accessories[] = {
             HOMEKIT_CHARACTERISTIC(MANUFACTURER, "R0b0 HomeKit"),
             HOMEKIT_CHARACTERISTIC(SERIAL_NUMBER, serial),
             HOMEKIT_CHARACTERISTIC(MODEL, "ESP8266"),
-            HOMEKIT_CHARACTERISTIC(FIRMWARE_REVISION, "1.4"),
+            HOMEKIT_CHARACTERISTIC(FIRMWARE_REVISION, "1.5"),
 			NULL
 		}),
 	  HOMEKIT_SERVICE(LIGHTBULB, .primary=true, .characteristics=(homekit_characteristic_t*[]) {

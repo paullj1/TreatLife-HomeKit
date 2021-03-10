@@ -3,7 +3,7 @@
 void setup() {  
   WiFiManager wm;
   wm.setDebugOutput(false);
-  wm.setConfigPortalTimeout(15);
+  wm.setConfigPortalTimeout(WIFI_BOOT_CONFIG_TIMEOUT);
 
   if (!wm.autoConnect()) {
     ESP.restart();
@@ -326,13 +326,6 @@ void tuya_handle_product_info() {
 // ---------------------------------------------------------
 // HOMEKIT Stuff
 // ---------------------------------------------------------
-
-void my_accessory_identify(homekit_value_t _value) {
-  // turn light on, sleep 500 ms, turn off
-  tuya_send_bool(DIMMER_ON_ID, true);
-  delay(500);
-  tuya_send_bool(DIMMER_ON_ID, false);
-}
 
 void homekit_setup() {
   sprintf(serial, "R0B0%X\0", ESP.getChipId());
