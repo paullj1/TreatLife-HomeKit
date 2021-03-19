@@ -8,7 +8,7 @@ void my_accessory_identify(homekit_value_t _value) {
 }
 
 char serial[16] = "XXXXXX\0";
-char device_name[32] = "DS03-XXXXXX\0";
+char device_name[32] = "DS03 XXXXXX\0";
 
 // format: bool; HAP section 9.70; bool on/off
 homekit_characteristic_t cha_switch_on = HOMEKIT_CHARACTERISTIC_(ON, false);

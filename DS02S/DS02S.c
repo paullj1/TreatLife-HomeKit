@@ -8,13 +8,12 @@ void my_accessory_identify(homekit_value_t _value) {
 }
 
 char serial[16] = "XXXXXX\0";
-char device_name[32] = "Dimmer-XXXXXX\0";
+char device_name[32] = "DS02S XXXXXX\0";
 
 // format: bool; HAP section 9.70; write the .setter function to get the switch-event sent from iOS Home APP.
 homekit_characteristic_t cha_switch_on = HOMEKIT_CHARACTERISTIC_(ON, false);
 
 // format: string; HAP section 9.62; max length 64
-homekit_characteristic_t cha_name = HOMEKIT_CHARACTERISTIC_(NAME, "Dimmer");
 
 // format: int; HAP section 9.11; brightness, value 0-100
 homekit_characteristic_t cha_brightness = HOMEKIT_CHARACTERISTIC_(BRIGHTNESS, 0);
@@ -31,9 +30,9 @@ homekit_accessory_t *accessories[] = {
 			NULL
 		}),
 	  HOMEKIT_SERVICE(LIGHTBULB, .primary=true, .characteristics=(homekit_characteristic_t*[]) {
+      HOMEKIT_CHARACTERISTIC(NAME, "Dimmer"),
 			&cha_switch_on,
       &cha_brightness,
-      &cha_name,
 			NULL
 		}),
 		NULL
