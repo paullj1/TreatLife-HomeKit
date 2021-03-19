@@ -305,14 +305,9 @@ void tuya_process_state_packet() {
     cha_brightness.value.int_value = (val / 10);
     homekit_characteristic_notify(&cha_brightness, cha_brightness.value);
   } else if (dpId == FAN_ON_ID) {
-    cha_fan_on.value.int_value = Tuya.buffer[dpidStart + 4];
+    cha_fan_on.value.uint8_value = Tuya.buffer[dpidStart + 4];
     homekit_characteristic_notify(&cha_fan_on, cha_fan_on.value);
   } else if (dpId == FAN_SPEED_ID) {
-
-    // Fan speed is only updated if it's on, so go ahead and make state active (on)
-    cha_fan_on.value.int_value = 1;
-    homekit_characteristic_notify(&cha_fan_on, cha_fan_on.value);
-
     uint8_t speed = Tuya.buffer[dpidStart + 4];
     uint32_t level = 0;
 
@@ -372,23 +367,15 @@ void cha_switch_brightness_setter(const homekit_value_t value) {
 }
 
 void cha_fan_on_setter(const homekit_value_t value) {
-  int on = value.int_value;
-  cha_fan_on.value.int_value = on;  //sync the value
-  tuya_send_value(FAN_ON_ID, on);
+  int on = value.uint8_value;
+  cha_fan_on.value.uint8_value = on;  //sync the value
+  tuya_send_bool(FAN_ON_ID, (on == 1) ? true : false);
 }
 
 void cha_fan_speed_setter(const homekit_value_t value) {
   uint32_t speed = 0;
   int level = value.float_value;
   cha_fan_speed.value.float_value = level;  //sync the value
-
-  if (level > 0) {
-    cha_fan_on.value.int_value = 1;
-    tuya_send_bool(FAN_ON_ID, 1);
-  } else if (level <= 0) {
-    cha_fan_on.value.int_value = 0;
-    tuya_send_bool(FAN_ON_ID, 0);
-  }
 
   if (level <= 25) {
     speed = 0;
