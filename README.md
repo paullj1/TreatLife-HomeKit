@@ -6,20 +6,31 @@ Open source firmware with native HomeKit support, and OTA upgrades for:
 <img src="https://github.com/paullj1/TreatLife-DS02S-HomeKit/raw/main/qrcode.svg" width="150" />
 
 # Notes
-* To enter WiFi config mode to do OTA update, press the on/off button 8 times with less than 1 second between presses
 * Setup code is 030-52-021
-* Communicates with Tuya MCU to control devices
-* If upgrading from tasmota, you'll need to gzip the firmware file before uploading it
-  * NOTE: Tasmota expects a gzip file, not a tar.gz, just run `gzip DS02S.bin`
-* This firmware is built to utilize the ESP8266EX chip in the SmartLife devices which has 2mb of flash
-  * Upgrading does not require gzip'ing the firmware
+* To enter WiFi config mode after pairing to do OTA update or change WiFi
+  network, press the on/off button 8 times with less than 1 second between
+  presses
+* If upgrading from tasmota, you'll need to use the gzip'd binary
+* This firmware is built to utilize the ESP8266EX chip in the SmartLife devices
+  which has 2mb of flash
+  * If upgrading from an older version, DO NOT use the gzip'd binary, the full
+    bin should work
 
 # Building
 ## arduino-cli
 ```
 arduino-cli lib install WiFiManager
 arduino-cli lib install HomeKit-ESP8266
+
+# DS02S
+cd DS02S
 ./build.sh
+
+# DS03
+cd DS03
+./build.sh
+
+# Resulting binary will be DSXXX.bin; use esptool, or Arduino to flash
 ```
 
 ## Arduino IDE
