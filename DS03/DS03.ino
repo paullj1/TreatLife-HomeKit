@@ -20,21 +20,14 @@ void loop() {
 }
 
 // ---------------------------------------------------------
-// TUYA Stuff
+// TUYA Mappings
 //
-// Send                                          CMD LEN  dpID Type  Len  Value
-// Turn light on:                         55aa00 06  0005 01   01    0001 01
-// Turn light off:                        55aa00 06  0005 01   01    0001 00
-// Send brightness value (190 = 400):     55aa00 06  0008 02   02    0004 00000190
-// Send Heartbeat:                        55aa00 00  0000
-// Set min brightness (0x64 = 100):       55aa00 06  0008 03   02    0004 00000064
-
-// Recv (msg type at byte 5)
-//                                        HEADER CMD D-LN dpID  Type  LEN     DATA
-// Receive brightness value (12C = 300):  55AA03  07 0008 02    02   0004 0000012C
-// Receive light ON:                      55AA03  07 0005 01    01   0001 01
-// Receive light OFF:                     55AA03  07 0005 01    01   0001 00
-// Receive heartbeat:                     55AA03  00 0001 01
+//   dpID       Function        Type
+//      1       Fan on/off      Boolean
+//      3       Fan Speed       Enum  (0,1,2,3)
+//      9       Light on/off    Boolean
+//     10       Dimmer          Integer (1-1000)
+// 
 // ---------------------------------------------------------
 
 struct TUYA {
@@ -126,7 +119,7 @@ void tuya_init() {
   Tuya.buffer = (char*)(malloc(TUYA_BUFFER_SIZE));
   if (Tuya.buffer != nullptr) {
 
-    Serial.begin(9600);
+    Serial.begin(115200);
     Serial.setDebugOutput(false);
 
   }
@@ -275,10 +268,8 @@ void tuya_request_state(uint8_t state_type) {
   }
 }
 
-// Send                                          CMD LEN  dpID Type  Len  Value
-// Turn light on:                         55aa00 06  0005 01   01    0001 01
-//                                         0 1 2  3   4 5  6    7     8 9 10
 void tuya_process_state_packet() {
+
   uint8_t dpidStart = 6;
   bool PowerOff = false;
 
@@ -313,6 +304,35 @@ void tuya_process_state_packet() {
 
     cha_brightness.value.int_value = (val / 10);
     homekit_characteristic_notify(&cha_brightness, cha_brightness.value);
+  } else if (dpId == FAN_ON_ID) {
+    cha_fan_on.value.int_value = Tuya.buffer[dpidStart + 4];
+    homekit_characteristic_notify(&cha_fan_on, cha_fan_on.value);
+  } else if (dpId == FAN_SPEED_ID) {
+
+    // Fan speed is only updated if it's on, so go ahead and make state active (on)
+    cha_fan_on.value.int_value = 1;
+    homekit_characteristic_notify(&cha_fan_on, cha_fan_on.value);
+
+    uint8_t speed = Tuya.buffer[dpidStart + 4];
+    uint32_t level = 0;
+
+    switch(speed) {
+      case 0:
+        level = 25;
+        break;
+      case 1:
+        level = 50;
+        break;
+      case 2:
+        level = 75;
+        break;
+      case 3:
+        level = 100;
+        break;
+    }
+
+    cha_fan_speed.value.float_value = level;
+    homekit_characteristic_notify(&cha_fan_speed, cha_fan_speed.value);
   }
 }
 
@@ -329,10 +349,12 @@ void tuya_handle_product_info() {
 
 void homekit_setup() {
   sprintf(serial, "R0B0%X\0", ESP.getChipId());
-  sprintf(device_name, "Dimmer %X\0", ESP.getChipId());
+  sprintf(device_name, "DS03 %X\0", ESP.getChipId());
 
   cha_switch_on.setter = cha_switch_on_setter;
   cha_brightness.setter = cha_switch_brightness_setter;
+  cha_fan_on.setter = cha_fan_on_setter;
+  cha_fan_speed.setter = cha_fan_speed_setter;
   arduino_homekit_setup(&config);
 }
 
@@ -347,4 +369,39 @@ void cha_switch_brightness_setter(const homekit_value_t value) {
   cha_brightness.value.int_value = level;  //sync the value
   uint16_t scaled_level = level * 10;
   tuya_send_value(DIMMER_VALUE_ID, scaled_level);
+}
+
+void cha_fan_on_setter(const homekit_value_t value) {
+  int on = value.int_value;
+  cha_fan_on.value.int_value = on;  //sync the value
+  tuya_send_value(FAN_ON_ID, on);
+}
+
+void cha_fan_speed_setter(const homekit_value_t value) {
+  uint32_t speed = 0;
+  int level = value.float_value;
+  cha_fan_speed.value.float_value = level;  //sync the value
+
+  if (level > 0) {
+    cha_fan_on.value.int_value = 1;
+    tuya_send_bool(FAN_ON_ID, 1);
+  } else if (level <= 0) {
+    cha_fan_on.value.int_value = 0;
+    tuya_send_bool(FAN_ON_ID, 0);
+  }
+
+  if (level <= 25) {
+    speed = 0;
+    level = 25;
+  } else if (level > 25 && level <= 50) {
+    speed = 1;
+    level = 50;
+  } else if (level > 50 && level <= 75) {
+    speed = 2;
+    level = 75;
+  } else if (level > 75) {
+    speed = 3;
+    level = 100;
+  }
+  tuya_send_enum(FAN_SPEED_ID, speed);
 }

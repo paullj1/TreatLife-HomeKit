@@ -1,12 +1,8 @@
-#include <WiFiManager.h>
 #include <arduino_homekit_server.h>
+#include <WiFiManager.h>
 
 #define WM_DEBUG_LEVEL DEBUG_ERROR
 #define HOMEKIT_LOG_LEVEL HOMEKIT_NO_LOG
-
-#define MSG_BRIGHTNESS 8
-#define MSG_SWITCH     5
-#define MSG_HEARTBEAT  1
 
 #define TUYA_BUFFER_SIZE 256
 #define CONFIG_MODE_PRESS_COUNT 8
@@ -29,12 +25,16 @@
 #define TUYA_TYPE_STRING       0x03
 #define TUYA_TYPE_ENUM         0x04
 
-#define DIMMER_ON_ID           0x01
-#define DIMMER_VALUE_ID        0x02
-#define DIMMER_MIN_ID          0x03
+#define FAN_ON_ID              0x01
+#define FAN_SPEED_ID           0x03
+#define DIMMER_ON_ID           0x09
+#define DIMMER_VALUE_ID        0x0a
 
 extern "C" homekit_server_config_t config;
 extern "C" homekit_characteristic_t cha_switch_on;
 extern "C" homekit_characteristic_t cha_brightness;
+extern "C" homekit_characteristic_t cha_fan_on;
+extern "C" homekit_characteristic_t cha_fan_speed;
+
 extern "C" char serial[16];
 extern "C" char device_name[32];

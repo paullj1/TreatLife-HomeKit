@@ -4,10 +4,6 @@
 #define WM_DEBUG_LEVEL DEBUG_ERROR
 #define HOMEKIT_LOG_LEVEL HOMEKIT_NO_LOG
 
-#define MSG_BRIGHTNESS 8
-#define MSG_SWITCH     5
-#define MSG_HEARTBEAT  1
-
 #define TUYA_BUFFER_SIZE 256
 #define CONFIG_MODE_PRESS_COUNT 8
 #define CONFIG_MODE_TIMEOUT 1000 // milliseconds per press

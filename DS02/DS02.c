@@ -26,7 +26,7 @@ homekit_accessory_t *accessories[] = {
 			      HOMEKIT_CHARACTERISTIC(IDENTIFY, my_accessory_identify),
             HOMEKIT_CHARACTERISTIC(MANUFACTURER, "R0b0 HomeKit"),
             HOMEKIT_CHARACTERISTIC(SERIAL_NUMBER, serial),
-            HOMEKIT_CHARACTERISTIC(MODEL, "ESP8266"),
+            HOMEKIT_CHARACTERISTIC(MODEL, "DS02"),
             HOMEKIT_CHARACTERISTIC(FIRMWARE_REVISION, "1.5"),
 			NULL
 		}),
