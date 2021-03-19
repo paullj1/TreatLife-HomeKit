@@ -34,7 +34,7 @@ cd DS03
 ```
 
 ## Arduino IDE
-Use the following settings, and install the required dependencies:
+Use the following settings, and install the required dependencies:<br />
 <img src="https://github.com/paullj1/TreatLife-DS02S-HomeKit/raw/main/Images/Arduino%20Settings.png" width="200" />
 
 ## Flashing
