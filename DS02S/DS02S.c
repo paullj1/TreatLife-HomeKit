@@ -26,8 +26,8 @@ homekit_accessory_t *accessories[] = {
 			      HOMEKIT_CHARACTERISTIC(IDENTIFY, my_accessory_identify),
             HOMEKIT_CHARACTERISTIC(MANUFACTURER, "R0b0 HomeKit"),
             HOMEKIT_CHARACTERISTIC(SERIAL_NUMBER, serial),
-            HOMEKIT_CHARACTERISTIC(MODEL, "DS02"),
-            HOMEKIT_CHARACTERISTIC(FIRMWARE_REVISION, "1.5"),
+            HOMEKIT_CHARACTERISTIC(MODEL, "DS02S"),
+            HOMEKIT_CHARACTERISTIC(FIRMWARE_REVISION, "1.6"),
 			NULL
 		}),
 	  HOMEKIT_SERVICE(LIGHTBULB, .primary=true, .characteristics=(homekit_characteristic_t*[]) {
