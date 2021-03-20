@@ -18,6 +18,7 @@ Open source firmware with native HomeKit support, and OTA upgrades for:
 3. Solder the 3.3v (VCC), GND, TXD, and RXD onto the chip:
   * <img src="https://github.com/paullj1/TreatLife-DS02S-HomeKit/raw/main/Images/Flash.jpg" width="200" />
 4. Connect GPIO0 to ground when applying power to the chip to enter flash mode
+  * I did this by soldering a wire to the back of the USB to serial adapter's GND pin, and then touching it to GPIO0 when plugging in USB adapter
 5. Run esptool (where `/dev/tty.usbserial-XXXX` is your USB to serial adapter, and `DS02S.bin` is the desired firmware image):
 ```
 esptool.py -p /dev/tty.usbserial-XXXX -b 115200 write_flash -e 0x0 DS02S.bin
