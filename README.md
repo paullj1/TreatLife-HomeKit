@@ -1,6 +1,6 @@
 # TreatLife HomeKit
 Open source firmware with native HomeKit support, and OTA upgrades for:
-* [TreatLife DS01 dimmer switch](https://smile.amazon.com/Treatlife-Incandescent-Compatible-Assistant-Single-Pole/dp/B07PJTLB7Z/ref=sr_1_1_sspa?dchild=1&keywords=treatlife+dimmer&qid=1616243705&sr=8-1)
+* [TreatLife DS01C dimmer switch](https://smile.amazon.com/Treatlife-Incandescent-Compatible-Assistant-Single-Pole/dp/B07PJTLB7Z/ref=sr_1_1_sspa?dchild=1&keywords=treatlife+dimmer&qid=1616243705&sr=8-1)
 * [TreatLife DS02S dimmer switch](https://smile.amazon.com/Treatlife-Neutral-Compatible-Assistant-Schedule/dp/B07YKFSWJN/ref=sr_1_4_sspa?dchild=1&keywords=treatlife+dimmer&qid=1615054278&sr=8-4)
 * [TreatLife DS03 dimmer and fan control](https://smile.amazon.com/Ceiling-Control-Treatlife-Assistant-Schedule/dp/B086PPRWL7/ref=mp_s_a_1_1?dchild=1&keywords=treatlife+ds03&qid=1616156418&sr=8-1)
 
