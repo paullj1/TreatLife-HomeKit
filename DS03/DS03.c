@@ -1,3 +1,6 @@
+#include "model.h"
+#include "vars.h"
+
 #include <homekit/homekit.h>
 #include <homekit/characteristics.h>
 
@@ -27,10 +30,10 @@ homekit_accessory_t *accessories[] = {
     HOMEKIT_SERVICE(ACCESSORY_INFORMATION, .characteristics=(homekit_characteristic_t*[]) {
       HOMEKIT_CHARACTERISTIC(NAME, device_name),
       HOMEKIT_CHARACTERISTIC(IDENTIFY, my_accessory_identify),
-      HOMEKIT_CHARACTERISTIC(MANUFACTURER, "R0b0 HomeKit"),
+      HOMEKIT_CHARACTERISTIC(MANUFACTURER, ROBO_MANUFACTURER),
       HOMEKIT_CHARACTERISTIC(SERIAL_NUMBER, serial),
-      HOMEKIT_CHARACTERISTIC(MODEL, "DS03"),
-      HOMEKIT_CHARACTERISTIC(FIRMWARE_REVISION, "1.6"),
+      HOMEKIT_CHARACTERISTIC(MODEL, ROBO_MODEL),
+      HOMEKIT_CHARACTERISTIC(FIRMWARE_REVISION, ROBO_VERSION),
       NULL
     }),
     // HAP section 8.23
@@ -62,5 +65,5 @@ homekit_accessory_t *accessories[] = {
 
 homekit_server_config_t config = {
   .accessories = accessories,
-  .password = "030-52-021",
+  .password = ROBO_SETUP_CODE,
 };
