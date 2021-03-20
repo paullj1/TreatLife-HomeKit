@@ -1,3 +1,4 @@
+#include "model.h"
 #include "includes.h"
 
 void setup() {  
@@ -329,7 +330,7 @@ void tuya_handle_product_info() {
 
 void homekit_setup() {
   sprintf(serial, "R0B0%X\0", ESP.getChipId());
-  sprintf(device_name, "DS02S %X\0", ESP.getChipId());
+  sprintf(device_name, "%s %X\0", ROBO_MODEL, ESP.getChipId());
 
   cha_switch_on.setter = cha_switch_on_setter;
   cha_brightness.setter = cha_switch_brightness_setter;
