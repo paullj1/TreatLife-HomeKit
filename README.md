@@ -16,7 +16,7 @@ Open source firmware with native HomeKit support, and OTA upgrades for:
 1. Setup [esptool](https://github.com/espressif/esptool)
 2. Acquire a USB to Serial adapter (I used [this one](https://www.amazon.com/dp/B07VV4B2MJ/ref=cm_sw_em_r_mt_dp_CZATT3CMYZNYN2QMV9KD?_encoding=UTF8&psc=1))
 3. Solder the 3.3v (VCC), GND, TXD, and RXD onto the chip:
-   <img src="https://github.com/paullj1/TreatLife-DS02S-HomeKit/raw/main/Images/Flash.jpg" width="200" />
+  * <img src="https://github.com/paullj1/TreatLife-DS02S-HomeKit/raw/main/Images/Flash.jpg" width="200" />
 4. Connect GPIO0 to ground when applying power to the chip to enter flash mode
 5. Run esptool (where `/dev/tty.usbserial-XXXX` is your USB to serial adapter, and `DS02S.bin` is the desired firmware image):
 ```
