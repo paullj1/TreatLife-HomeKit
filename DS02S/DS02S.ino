@@ -14,7 +14,6 @@ void setup() {
   WiFi.mode(WIFI_STA);
   tuya_set_wifi(true);
 
-  tuya_init();
   homekit_setup();
 }
 
