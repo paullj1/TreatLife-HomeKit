@@ -115,6 +115,17 @@ void tuya_send_string(uint8_t id, char data[]) {
   tuya_send_cmd(TUYA_CMD_SET_DP, payload_buffer, payload_len);
 }
 
+void tuya_set_wifi(boolean on) {
+  uint16_t payload_len = 1;
+  uint8_t payload_buffer[payload_len];
+  if (on) {
+    payload_buffer[0] = TUYA_WIFI_CONNECTED;
+  } else {
+    payload_buffer[0] = TUYA_WIFI_DISCONNECTED;
+  }
+  tuya_send_cmd(TUYA_CMD_WIFI_STATE, payload_buffer, payload_len);
+}
+
 void tuya_init() {
   Tuya.buffer = (char*)(malloc(TUYA_BUFFER_SIZE));
   if (Tuya.buffer != nullptr) {
@@ -125,6 +136,7 @@ void tuya_init() {
   }
   Tuya.heartbeat_timer = 0; // init heartbeat timer when dimmer init is done
   tuya_request_state(0);
+  tuya_set_wifi(true);
 }
 
 
@@ -287,10 +299,12 @@ void tuya_process_state_packet() {
     if (now - Tuya.last_state_change < CONFIG_MODE_TIMEOUT) {
       Tuya.config_mode_press_count++;
       if (Tuya.config_mode_press_count >= CONFIG_MODE_PRESS_COUNT) {
+        tuya_set_wifi(false);
         WiFiManager wm;
         wm.setDebugOutput(false);
         wm.setConfigPortalTimeout(180);
         wm.startConfigPortal();
+        tuya_set_wifi(true);
       }
     } else {
       Tuya.config_mode_press_count = 0;
