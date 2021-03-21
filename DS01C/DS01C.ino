@@ -6,12 +6,14 @@ void setup() {
   wm.setDebugOutput(false);
   wm.setConfigPortalTimeout(WIFI_BOOT_CONFIG_TIMEOUT);
 
+  tuya_init();
+
   if (!wm.autoConnect()) {
     ESP.restart();
   }
   WiFi.mode(WIFI_STA);
+  tuya_set_wifi(true);
 
-  tuya_init();
   homekit_setup();
 }
 
@@ -144,7 +146,7 @@ void tuya_init() {
   }
   Tuya.heartbeat_timer = 0; // init heartbeat timer when dimmer init is done
   tuya_request_state(0);
-  tuya_set_wifi(true);
+  tuya_set_wifi(false);
 }
 
 
