@@ -1,1 +1,1 @@
-#define ROBO_MODEL "DS03"
+#define ROBO_MODEL "DS02S"
