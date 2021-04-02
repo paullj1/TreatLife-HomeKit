@@ -43,16 +43,8 @@ homekit_accessory_t *accessories[] = {
       &cha_brightness,
       NULL
     }),
-    NULL
-  }),
-  HOMEKIT_ACCESSORY(.id=2, .category=homekit_accessory_category_fan, .services=(homekit_service_t*[]) {
-    HOMEKIT_SERVICE(ACCESSORY_INFORMATION, .characteristics=(homekit_characteristic_t*[]) {
-      HOMEKIT_CHARACTERISTIC(NAME, device_name),
-      HOMEKIT_CHARACTERISTIC(IDENTIFY, my_accessory_identify),
-      NULL
-    }),
     // HAP section 8.13; Req 9.3 (Active) pg 159; Optional: 9.81 Speed pg 197
-    HOMEKIT_SERVICE(FAN2, .primary=true, .characteristics=(homekit_characteristic_t*[]) {
+    HOMEKIT_SERVICE(FAN2, .primary=false, .characteristics=(homekit_characteristic_t*[]) {
       HOMEKIT_CHARACTERISTIC(NAME, "Fan"),
       &cha_fan_on,
       &cha_fan_speed,

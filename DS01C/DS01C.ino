@@ -8,11 +8,12 @@ void setup() {
 
   tuya_init();
 
+  tuya_set_wifi(TUYA_WIFI_CONFIG_MODE);
   if (!wm.autoConnect()) {
     ESP.restart();
   }
   WiFi.mode(WIFI_STA);
-  tuya_set_wifi(true);
+  tuya_set_wifi(TUYA_WIFI_CONNECTED);
 
   homekit_setup();
 }
@@ -44,13 +45,11 @@ struct TUYA {
   uint8_t cmd_status = 0;                 // Current status of serial-read
   uint8_t cmd_checksum = 0;               // Checksum of tuya command
   uint8_t data_len = 0;                   // Data lenght of command
-  uint8_t wifi_state = -2;                // Keep MCU wifi-status in sync with WifiState()
   uint8_t heartbeat_timer = 0;            // 10 second heartbeat timer for tuya module
   char *buffer = nullptr;                 // Serial receive buffer
   int byte_counter = 0;                   // Index in serial receive buffer
   uint32_t previousMillis = 0;            // Use to time heartbeats
-  uint8_t config_mode_press_count = 0;    // Use to enter config mode of count reaches threshold
-  uint32_t last_state_change = 0;         // Last button press
+  bool reset_wifi = false;                // Use to reset wifi from MCU
 } Tuya;
 
 void tuya_send_cmd(uint8_t cmd, uint8_t payload[] = nullptr, uint16_t payload_len = 0) {
@@ -125,14 +124,10 @@ void tuya_send_string(uint8_t id, char data[]) {
   tuya_send_cmd(TUYA_CMD_SET_DP, payload_buffer, payload_len);
 }
 
-void tuya_set_wifi(boolean on) {
+void tuya_set_wifi(uint8_t MODE) {
   uint16_t payload_len = 1;
   uint8_t payload_buffer[payload_len];
-  if (on) {
-    payload_buffer[0] = TUYA_WIFI_CONNECTED;
-  } else {
-    payload_buffer[0] = TUYA_WIFI_DISCONNECTED;
-  }
+  payload_buffer[0] = MODE;
   tuya_send_cmd(TUYA_CMD_WIFI_STATE, payload_buffer, payload_len);
 }
 
@@ -146,7 +141,6 @@ void tuya_init() {
   }
   Tuya.heartbeat_timer = 0; // init heartbeat timer when dimmer init is done
   tuya_request_state(0);
-  tuya_set_wifi(false);
 }
 
 
@@ -163,6 +157,16 @@ void tuya_loop() {
       Tuya.heartbeat_timer = 0;
       tuya_send_cmd(TUYA_CMD_HEARTBEAT);
     }
+  }
+
+  if (Tuya.reset_wifi) {
+    tuya_set_wifi(TUYA_WIFI_CONFIG_MODE);
+    WiFiManager wm;
+    wm.setDebugOutput(false);
+    wm.setConfigPortalTimeout(180);
+    wm.startConfigPortal();
+    tuya_set_wifi(TUYA_WIFI_CONNECTED);
+    Tuya.reset_wifi = false;
   }
 }
 
@@ -261,10 +265,9 @@ void tuya_process_packet() {
       tuya_send_cmd(TUYA_CMD_MCU_CONF);
       break;
 
-    case TUYA_CMD_HEARTBEAT:
-      if (Tuya.buffer[6] == 0) {
-        Tuya.wifi_state = -2;
-      }
+    case TUYA_CMD_WIFI_RESET:
+    case TUYA_CMD_WIFI_SELECT:
+      Tuya.reset_wifi = true;
       break;
 
     case TUYA_CMD_STATE:
@@ -296,40 +299,35 @@ void tuya_request_state(uint8_t state_type) {
 void tuya_process_state_packet() {
   uint8_t dpidStart = 6;
   bool PowerOff = false;
+  uint16_t val = 0;
 
   uint16_t dpDataLen  = Tuya.buffer[dpidStart + 2] << 8 | Tuya.buffer[dpidStart + 3];
   uint8_t  dpId       = Tuya.buffer[dpidStart];
   uint8_t  dpDataType = Tuya.buffer[dpidStart + 1];
 
-  // ON/OFF State
-  if (dpId == DIMMER_ON_ID) {
-    cha_switch_on.value.bool_value = (Tuya.buffer[dpidStart + 4] == 0x01) ? true : false;
-    homekit_characteristic_notify(&cha_switch_on, cha_switch_on.value);
+  switch (dpId) {
 
-    // Handle config mode
-    uint32_t now = millis();
-    if (now - Tuya.last_state_change < CONFIG_MODE_TIMEOUT) {
-      Tuya.config_mode_press_count++;
-      if (Tuya.config_mode_press_count >= CONFIG_MODE_PRESS_COUNT) {
-        tuya_set_wifi(false);
-        WiFiManager wm;
-        wm.setDebugOutput(false);
-        wm.setConfigPortalTimeout(180);
-        wm.startConfigPortal();
-        tuya_set_wifi(true);
+    case DIMMER_ON_ID:
+      cha_switch_on.value.bool_value = (Tuya.buffer[dpidStart + 4] == 0x01) ? true : false;
+      homekit_characteristic_notify(&cha_switch_on, cha_switch_on.value);
+      break;
+
+    case DIMMER_VALUE_ID:
+      val = Tuya.buffer[dpidStart + 6] << 8  |
+            Tuya.buffer[dpidStart + 7];
+
+      cha_brightness.value.int_value = (val / 10);
+      homekit_characteristic_notify(&cha_brightness, cha_brightness.value);
+      break;
+
+    case DIMMER_MINIMUM_ID:
+      val = Tuya.buffer[dpidStart + 6] << 8  |
+            Tuya.buffer[dpidStart + 7];
+
+      if (val == 100) { // indicates default value
+        tuya_send_value(DIMMER_MINIMUM_ID, MINIMUM_DIMMER_VALUE);
       }
-    } else {
-      Tuya.config_mode_press_count = 0;
-    }
-    Tuya.last_state_change = now;
-
-    // DIMMER VALUE Update
-  } else if (dpId == DIMMER_VALUE_ID) {
-    uint16_t val = Tuya.buffer[dpidStart + 6] << 8  |
-                   Tuya.buffer[dpidStart + 7];
-
-    cha_brightness.value.int_value = (val / 10);
-    homekit_characteristic_notify(&cha_brightness, cha_brightness.value);
+      break;
   }
 }
 
