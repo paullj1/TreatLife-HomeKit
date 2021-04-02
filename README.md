@@ -47,18 +47,12 @@ esptool.py -p /dev/tty.usbserial-XXXX -b 115200 write_flash -e 0x0 DS02S.bin
 # Building
 ## arduino-cli
 ```
-arduino-cli lib install WiFiManager
-arduino-cli lib install HomeKit-ESP8266
+# In any of the device directories (DS01C, DS02S, DS03, etc...)
+make requirements
 
-# DS02S
-cd DS02S
-./build.sh
-
-# DS03
-cd DS03
-./build.sh
-
-# Resulting binary will be DSXXX.bin; use esptool, or Arduino to flash
+# Build the binary:
+make compile
+# Resulting binary will be ../DSXXX.bin; use esptool, "make upload", or Arduino to flash
 ```
 
 ## Arduino IDE
