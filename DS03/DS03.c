@@ -26,7 +26,7 @@ homekit_characteristic_t cha_fan_on = HOMEKIT_CHARACTERISTIC_(ACTIVE, 0);
 homekit_characteristic_t cha_fan_speed = HOMEKIT_CHARACTERISTIC_(ROTATION_SPEED, 0);
 
 homekit_accessory_t *accessories[] = {
-  HOMEKIT_ACCESSORY(.id=1, .category=homekit_accessory_category_lightbulb, .services=(homekit_service_t*[]) {
+  HOMEKIT_ACCESSORY(.id=1, .category=homekit_accessory_category_fan, .services=(homekit_service_t*[]) {
     HOMEKIT_SERVICE(ACCESSORY_INFORMATION, .characteristics=(homekit_characteristic_t*[]) {
       HOMEKIT_CHARACTERISTIC(NAME, device_name),
       HOMEKIT_CHARACTERISTIC(IDENTIFY, my_accessory_identify),
