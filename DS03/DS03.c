@@ -36,18 +36,18 @@ homekit_accessory_t *accessories[] = {
       HOMEKIT_CHARACTERISTIC(FIRMWARE_REVISION, ROBO_VERSION),
       NULL
     }),
-    // HAP section 8.23
-    HOMEKIT_SERVICE(LIGHTBULB, .primary=true, .characteristics=(homekit_characteristic_t*[]) {
-      HOMEKIT_CHARACTERISTIC(NAME, "Dimmer"),
-      &cha_switch_on,
-      &cha_brightness,
-      NULL
-    }),
     // HAP section 8.13; Req 9.3 (Active) pg 159; Optional: 9.81 Speed pg 197
-    HOMEKIT_SERVICE(FAN2, .primary=false, .characteristics=(homekit_characteristic_t*[]) {
+    HOMEKIT_SERVICE(FAN2, .primary=true, .characteristics=(homekit_characteristic_t*[]) {
       HOMEKIT_CHARACTERISTIC(NAME, "Fan"),
       &cha_fan_on,
       &cha_fan_speed,
+      NULL
+    }),
+    // HAP section 8.23
+    HOMEKIT_SERVICE(LIGHTBULB, .primary=false, .characteristics=(homekit_characteristic_t*[]) {
+      HOMEKIT_CHARACTERISTIC(NAME, "Dimmer"),
+      &cha_switch_on,
+      &cha_brightness,
       NULL
     }),
     NULL
