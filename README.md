@@ -5,9 +5,9 @@ Open source firmware with native HomeKit support, and OTA upgrades for:
 * [TreatLife DS03 dimmer and fan control](https://smile.amazon.com/Ceiling-Control-Treatlife-Assistant-Schedule/dp/B086PPRWL7/ref=mp_s_a_1_1?dchild=1&keywords=treatlife+ds03&qid=1616156418&sr=8-1)
 
 # Release Binaries
-* [DS01C](https://github.com/paullj1/TreatLife-HomeKit/releases/download/v1.7/DS01C.bin)
-* [DS02S](https://github.com/paullj1/TreatLife-HomeKit/releases/download/v1.7/DS02S.bin)
-* [DS03](https://github.com/paullj1/TreatLife-HomeKit/releases/download/v1.7/DS03.bin)
+* [DS01C](https://github.com/paullj1/TreatLife-HomeKit/releases/download/1.8/DS01C.bin)
+* [DS02S](https://github.com/paullj1/TreatLife-HomeKit/releases/download/1.8/DS02S.bin)
+* [DS03](https://github.com/paullj1/TreatLife-HomeKit/releases/download/1.8/DS03.bin)
 
 <img src="https://github.com/paullj1/TreatLife-DS02S-HomeKit/raw/main/qrcode.svg" width="150" />
 
@@ -47,18 +47,12 @@ esptool.py -p /dev/tty.usbserial-XXXX -b 115200 write_flash -e 0x0 DS02S.bin
 # Building
 ## arduino-cli
 ```
-arduino-cli lib install WiFiManager
-arduino-cli lib install HomeKit-ESP8266
+# In any of the device directories (DS01C, DS02S, DS03, etc...)
+make requirements
 
-# DS02S
-cd DS02S
-./build.sh
-
-# DS03
-cd DS03
-./build.sh
-
-# Resulting binary will be DSXXX.bin; use esptool, or Arduino to flash
+# Build the binary:
+make compile
+# Resulting binary will be ../DSXXX.bin; use esptool, "make upload", or Arduino to flash
 ```
 
 ## Arduino IDE
