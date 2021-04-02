@@ -8,7 +8,7 @@ void setup() {
 
   tuya_init();
 
-  tuya_set_wifi(TUYA_WIFI_CONFIG_MODE);
+  tuya_set_wifi(TUYA_WIFI_DISCONNECTED);
   if (!wm.autoConnect()) {
     ESP.restart();
   }
@@ -161,7 +161,7 @@ void tuya_loop() {
   }
 
   if (Tuya.reset_wifi) {
-    tuya_set_wifi(TUYA_WIFI_CONFIG_MODE);
+    tuya_set_wifi(TUYA_WIFI_DISCONNECTED);
     WiFiManager wm;
     wm.setDebugOutput(false);
     wm.setConfigPortalTimeout(180);
