@@ -2,6 +2,7 @@
 
 void setup() {  
   tuya_init(115200);
+  tuya_set_wifi(TUYA_WIFI_DISCONNECTED);
 
   WiFiManager wm;
   wm.setDebugOutput(false);

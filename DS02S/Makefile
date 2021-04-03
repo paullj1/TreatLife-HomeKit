@@ -22,10 +22,11 @@ endif
 
 BUILD_DIR  := $(subst :,.,build/esp8266:esp8266:generic)
 
-SRC        := $(wildcard *.ino)
+NAME       := $(shell basename $(PWD))
+SRC        := $(NAME).ino
 HDRS       := $(wildcard *.h)
 BIN        := $(BUILD_DIR)/$(SRC).bin
-DEPLOY     := $(basename $(PWD)).bin
+DEPLOY     := $(NAME).bin
 ELF        := $(BUILD_DIR)/$(SRC).elf
 LIBRARIES  := ~/Documents/Arduino/libraries/
 
@@ -34,6 +35,7 @@ $(info V          is [${V}])
 $(info VFLAG      is [${VFLAG}])
 $(info MAKE_DIR   is [${MAKE_DIR}])
 $(info BUILD_DIR  is [${BUILD_DIR}])
+$(info NAME       is [${NAME}])
 $(info SRC        is [${SRC}])
 $(info HDRS       is [${HDRS}])
 $(info BIN        is [${BIN}])
