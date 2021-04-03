@@ -1,5 +1,5 @@
 #include "model.h"
-#include "vars.h"
+#include "version.h"
 
 #include <homekit/homekit.h>
 #include <homekit/characteristics.h>
