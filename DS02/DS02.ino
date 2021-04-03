@@ -45,14 +45,6 @@ void tuya_process_state_packet() {
       homekit_characteristic_notify(&cha_brightness, cha_brightness.value);
       break;
 
-    case DIMMER_MINIMUM_ID:
-      val = Tuya.buffer[dpidStart + 6] << 8  |
-            Tuya.buffer[dpidStart + 7];
-
-      if (val == 100) { // indicates default value
-        tuya_send_value(DIMMER_MINIMUM_ID, MINIMUM_DIMMER_VALUE);
-      }
-      break;
   }
 }
 
