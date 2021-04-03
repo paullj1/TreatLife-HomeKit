@@ -47,12 +47,14 @@ esptool.py -p /dev/tty.usbserial-XXXX -b 115200 write_flash -e 0x0 DS02S.bin
 # Building
 ## arduino-cli
 ```
+# To build a specific device, cd into its dir, then:
 # In any of the device directories (DS01C, DS02S, DS03, etc...)
 make requirements
-
-# Build the binary:
 make compile
-# Resulting binary will be ../DSXXX.bin; use esptool, "make upload", or Arduino to flash
+# Resulting binary will be DSXXX.bin; use esptool, "make upload", or Arduino to flash
+
+# To build all at once from top level directory (resulting bins will be in 'release' dir):
+make
 ```
 
 ## Arduino IDE
