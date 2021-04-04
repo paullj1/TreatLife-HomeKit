@@ -37,7 +37,7 @@ esptool.py -p /dev/tty.usbserial-XXXX -b 115200 write_flash -e 0x0 DS02S.bin
 7. Device should pair
 
 # Config Mode
-* To enter config mode to change your SSID, or update the firmware, press the light on/off button 8 times with less than 1 second between presses.
+* To enter config mode to change your SSID, or update the firmware, press and hold the light on/off button for at least five seconds, then browse to the IP address of the device.  To get the IP, you can look at your ARP cache for the MAC address which matches the devices serial number. 
 
 # Notes
 * If upgrading from tasmota, you'll need to use the gzip'd binary in the release
