@@ -1,11 +1,11 @@
+#define WM_DEBUG_LEVEL DEBUG_ERROR
+#define HOMEKIT_LOG_LEVEL HOMEKIT_NO_LOG
+
 #include <arduino_homekit_server.h>
 #include <WiFiManager.h>
 
 #include "tuya.h"
 #include "model.h"
-
-#define WM_DEBUG_LEVEL DEBUG_ERROR
-#define HOMEKIT_LOG_LEVEL HOMEKIT_NO_LOG
 
 #define FAN_ON_ID              0x01
 #define FAN_SPEED_ID           0x03

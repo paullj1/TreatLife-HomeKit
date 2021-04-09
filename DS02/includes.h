@@ -1,11 +1,11 @@
+#define WM_DEBUG_LEVEL DEBUG_ERROR
+#define HOMEKIT_LOG_LEVEL HOMEKIT_NO_LOG
+
 #include <WiFiManager.h>
 #include <arduino_homekit_server.h>
 
 #include "tuya.h"
 #include "model.h"
-
-#define WM_DEBUG_LEVEL DEBUG_ERROR
-#define HOMEKIT_LOG_LEVEL HOMEKIT_NO_LOG
 
 #define DIMMER_ON_ID           0x01
 #define DIMMER_VALUE_ID        0x02
