@@ -6,10 +6,10 @@ Open source firmware with native HomeKit support, and OTA upgrades for:
 * [TreatLife DS03 dimmer and fan control](https://smile.amazon.com/dp/B086PPRWL7)
 
 # Release Binaries
-* [DS01C](https://github.com/paullj1/TreatLife-HomeKit/releases/download/1.8.1/DS01C.bin)
-* [DS02](https://github.com/paullj1/TreatLife-HomeKit/releases/download/1.8.1/DS02.bin)
-* [DS02S](https://github.com/paullj1/TreatLife-HomeKit/releases/download/1.8.1/DS02S.bin)
-* [DS03](https://github.com/paullj1/TreatLife-HomeKit/releases/download/1.8.1/DS03.bin)
+* [DS01C](https://github.com/paullj1/TreatLife-HomeKit/releases/download/1.9.0/DS01C.bin)
+* [DS02](https://github.com/paullj1/TreatLife-HomeKit/releases/download/1.9.0/DS02.bin)
+* [DS02S](https://github.com/paullj1/TreatLife-HomeKit/releases/download/1.9.0/DS02S.bin)
+* [DS03](https://github.com/paullj1/TreatLife-HomeKit/releases/download/1.9.0/DS03.bin)
 
 <img src="https://github.com/paullj1/TreatLife-HomeKit/raw/main/qrcode.svg" width="150" />
 
