@@ -19,3 +19,4 @@ extern "C" homekit_characteristic_t cha_brightness;
 
 extern "C" char serial[16];
 extern "C" char device_name[32];
+extern "C" void identify();

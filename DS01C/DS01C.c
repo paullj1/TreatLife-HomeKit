@@ -7,7 +7,7 @@
 // Called to identify this accessory. See HAP section 6.7.6 Identify Routine
 // Generally this is called when paired successfully or click the "Identify Accessory" button in Home APP.
 void my_accessory_identify(homekit_value_t _value) {
-  printf("accessory identify\n");
+  identify();
 }
 
 char serial[16] = "XXXXXX\0";

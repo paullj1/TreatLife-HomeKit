@@ -24,3 +24,4 @@ extern "C" homekit_characteristic_t cha_fan_speed;
 
 extern "C" char serial[16];
 extern "C" char device_name[32];
+extern "C" void identify();

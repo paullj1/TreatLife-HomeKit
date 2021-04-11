@@ -57,6 +57,21 @@ void tuya_process_state_packet() {
   }
 }
 
+void identify() {
+  tuya_send_bool(DIMMER_ON_ID, true);
+  tuya_send_value(DIMMER_VALUE_ID, 0);
+  for (uint32_t i = 0; i < 1000; i += 10) {
+    tuya_send_value(DIMMER_VALUE_ID, i);
+    delay(5);
+  }
+  for (uint32_t i = 1000; i > 0; i -= 10) {
+    tuya_send_value(DIMMER_VALUE_ID, i);
+    delay(5);
+  }
+  tuya_send_bool(DIMMER_ON_ID, false);
+}
+
+
 // ---------------------------------------------------------
 // HOMEKIT Stuff
 // ---------------------------------------------------------
