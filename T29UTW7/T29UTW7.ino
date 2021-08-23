@@ -53,6 +53,7 @@ void thermostat_state_loop() {
       else{
         //printf("Sending TUYA_WIFI_DISCONNECTED\n");
         tuya_set_wifi(TUYA_WIFI_DISCONNECTED);
+        ESP.restart();
       }
     }
   }
