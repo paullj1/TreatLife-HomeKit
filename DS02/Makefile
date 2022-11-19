@@ -33,6 +33,7 @@ LIBRARIES  := ~/Documents/Arduino/libraries/
 $(info FQBN       is [${FQBN}])
 $(info V          is [${V}])
 $(info VFLAG      is [${VFLAG}])
+$(info CFLAG      is [${CFLAG}])
 $(info MAKE_DIR   is [${MAKE_DIR}])
 $(info BUILD_DIR  is [${BUILD_DIR}])
 $(info NAME       is [${NAME}])
@@ -49,7 +50,7 @@ compile: $(ELF)
 .PHONY: compile
 
 $(ELF): $(SRC) $(HDRS)
-	arduino-cli compile -b $(FQBN) $(VFLAG) --libraries $(LIBRARIES) -e ./
+	arduino-cli compile -b $(FQBN) $(VFLAG) --build-property "compiler.cpp.extra_flags=\"$(CFLAG)\"" --libraries $(LIBRARIES) -e ./
 	mv $(BIN) $(DEPLOY)
 
 upload:

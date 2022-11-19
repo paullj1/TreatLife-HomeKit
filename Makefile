@@ -1,7 +1,7 @@
 SUBDIRS := $(wildcard DS*)
 
-all: subdirs hashes
-subdirs:
+release:
+	mkdir release
 	for dir in $(SUBDIRS); do \
 		cd $$dir; \
 		$(MAKE); \
@@ -10,13 +10,24 @@ subdirs:
 	mv DS*/*.bin release/
 	gzip -k release/*.bin
 
+debug:
+	mkdir debug
+	for dir in $(SUBDIRS); do \
+		cd $$dir; \
+		CFLAG='-DHOMEKIT_LOG_DEBUG' $(MAKE); \
+		cd ..; \
+	done
+	mv DS*/*.bin debug/
+	gzip -k debug/*.bin
+
 clean:
 	for dir in $(SUBDIRS); do \
 		cd $$dir; \
 		$(MAKE) clean; \
 		cd ..; \
 	done
-	rm release/*
+	rm -rf release debug
 
 hashes:
-	cd release; sha1 *
+	cd release; sha1sum *
+	cd debug; sha1sum *
