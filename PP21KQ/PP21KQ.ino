@@ -124,13 +124,19 @@ void cha_side_b_preheat_setter(const homekit_value_t value) {
 }
 
 void cha_side_a_value_setter(const homekit_value_t value) {
-  uint16_t level = (uint16_t) round((value.int_value + 10) / 10);
+  uint16_t level = (uint16_t) round(value.int_value / 10);
+  if (level > 0) {
+    level--;
+  }
   cha_side_a_level.value.int_value = level;  //sync the value
   tuya_send_enum(A_LEVEL_ID, level);
 }
 
 void cha_side_b_value_setter(const homekit_value_t value) {
-  uint16_t level = (uint16_t) round((value.int_value + 10) / 10);
+  uint16_t level = (uint16_t) round(value.int_value / 10);
+  if (level > 0) {
+    level--;
+  }
   cha_side_b_level.value.int_value = level;  //sync the value
   tuya_send_enum(B_LEVEL_ID, level);
 }
