@@ -1,4 +1,4 @@
-SUBDIRS := $(wildcard DS*)
+SUBDIRS := $(wildcard DS*) PP21KQ 
 
 release:
 	mkdir release
@@ -7,7 +7,7 @@ release:
 		$(MAKE); \
 		cd ..; \
 	done
-	mv DS*/*.bin release/
+	mv */*.bin release/
 	gzip -k release/*.bin
 
 debug:
@@ -17,7 +17,7 @@ debug:
 		CFLAG='-DHOMEKIT_LOG_DEBUG' $(MAKE); \
 		cd ..; \
 	done
-	mv DS*/*.bin debug/
+	mv */*.bin debug/
 	gzip -k debug/*.bin
 
 clean:
