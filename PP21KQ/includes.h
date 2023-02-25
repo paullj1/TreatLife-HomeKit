@@ -1,6 +1,13 @@
-#define WM_DEBUG_LEVEL DEBUG_ERROR
-#define HOMEKIT_LOG_LEVEL HOMEKIT_NO_LOG
-#define USEOTA
+
+#define WM_FIXERASECONFIG
+
+#ifdef _DEBUG_TUYA
+#define WM_DEBUG_LEVEL 3
+#define HOMEKIT_LOG_LEVEL 3
+#else
+#define WM_DEBUG_LEVEL 0
+#define HOMEKIT_LOG_LEVEL 0
+#endif
 
 #include <WiFiManager.h>
 #include <arduino_homekit_server.h>

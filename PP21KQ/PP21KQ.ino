@@ -2,6 +2,8 @@
 #include <math.h>
 
 void setup() {  
+  WiFi.mode(WIFI_STA);
+
   tuya_init(9600);
   tuya_set_wifi(TUYA_WIFI_DISCONNECTED);
 
@@ -11,7 +13,6 @@ void setup() {
   if (!wm.autoConnect()) {
     ESP.restart();
   }
-  WiFi.mode(WIFI_STA);
   tuya_set_wifi(TUYA_WIFI_CONNECTED);
 
   homekit_setup();

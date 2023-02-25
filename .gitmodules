@@ -1,0 +1,6 @@
+[submodule "submodules/WiFiManager"]
+	path = submodules/WiFiManager
+	url = git@github.com:paullj1/WiFiManager.git
+[submodule "submodules/Arduino-HomeKit-ESP8266"]
+	path = submodules/Arduino-HomeKit-ESP8266
+	url = git@github.com:paullj1/Arduino-HomeKit-ESP8266.git

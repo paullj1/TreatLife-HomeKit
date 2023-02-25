@@ -14,7 +14,7 @@ debug:
 	mkdir debug
 	for dir in $(SUBDIRS); do \
 		cd $$dir; \
-		CFLAG='-DHOMEKIT_LOG_DEBUG' $(MAKE); \
+		CFLAG='-D_DEBUG_TUYA' $(MAKE); \
 		cd ..; \
 	done
 	mv */*.bin debug/

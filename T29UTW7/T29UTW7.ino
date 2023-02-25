@@ -9,6 +9,8 @@ bool fan_on = 0;
 bool hold_on = 0;
 
 void setup() {  
+  WiFi.mode(WIFI_STA);
+
   tuya_init(115200);
   tuya_set_wifi(TUYA_WIFI_DISCONNECTED);
 
@@ -18,7 +20,6 @@ void setup() {
   if (!wm.autoConnect()) {
     ESP.restart();
   }
-  WiFi.mode(WIFI_STA);
   tuya_set_wifi(TUYA_WIFI_CLOUD);
 
   homekit_setup();
