@@ -10,12 +10,20 @@ void setup() {
   WiFiManager wm;
   wm.setDebugOutput(false);
   wm.setConfigPortalTimeout(WIFI_BOOT_CONFIG_TIMEOUT);
+
+  WiFiManagerParameter reset_homekit_id("reset_homekit_id", "Enter 'RESET' to reset");
+  wm.addParameter(&reset_homekit_id);
+
   if (!wm.autoConnect()) {
     ESP.restart();
   }
   tuya_set_wifi(TUYA_WIFI_CONNECTED);
 
   homekit_setup();
+
+  char const *reset = "RESET\0";
+  if (strncmp(reset_homekit_id.getValue(), reset, 5) == 0)
+    homekit_storage_reset();
 }
 
 void loop() {

@@ -28,7 +28,7 @@ HDRS       := $(wildcard *.h)
 BIN        := $(BUILD_DIR)/$(SRC).bin
 DEPLOY     := $(NAME).bin
 ELF        := $(BUILD_DIR)/$(SRC).elf
-LIBRARIES  := submodules/
+LIBRARIES  := ../submodules/
 
 $(info FQBN       is [${FQBN}])
 $(info V          is [${V}])
